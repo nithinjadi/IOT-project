@@ -1,0 +1,25 @@
+#include<Servo.h>
+const int relayPin = 3; // Relay control pin
+const int buzzerPin = 4; // Buzzer control pin
+const int sensorPin = A0; // MQ3 sensor analog pin
+const int alcoholThreshold = 150;
+void setup() {
+ pinMode(relayPin, OUTPUT);
+ pinMode(buzzerPin, OUTPUT);
+ pinMode(sensorPin, INPUT);
+}
+void loop() {
+ // Read alcohol level from MQ3 sensor
+ int alcoholLevel = analogRead(sensorPin);
+ // Check if alcohol level is above the threshold
+ if (alcoholLevel > alcoholThreshold) {
+ // Turn off relay (and motor) and activate the buzzer to alert
+ digitalWrite(relayPin, LOW);
+ digitalWrite(buzzerPin, HIGH);
+ delay(1000); // Buzzer on for 1 second
+ digitalWrite(buzzerPin, LOW);
+ } else {
+ digitalWrite(relayPin, HIGH); // Activate relay (and motor) based on your specific conditions }
+// Add a delay to prevent rapid readings
+ delay(10);
+} 
